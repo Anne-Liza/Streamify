@@ -14,8 +14,7 @@ import NotificationsPage from "./pages/NotificationsPage.jsx"
 import CallPage from "./pages/CallPage.jsx"
 import ChatPage from "./pages/ChatPage.jsx"
 import OnboardingPage from "./pages/OnboardingPage.jsx"
-
-
+import { axiosInstance } from "./lib/axios.js"
 
 
 const App = () => {
@@ -24,9 +23,10 @@ const App = () => {
     queryKey: ["todos"],
 
     queryFn: async () => {
-      const res = await axios.get("https://jsonplaceholder.typicode.com/todos")
+      const res = await axiosInstance.get("/auth/me")
       return res.data
     },
+    retry: false, // cause its a auth check
   })
   console.log({data})
   console.log({isLoading})
